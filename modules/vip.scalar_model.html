@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>vip.scalar_model &mdash; libsbn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="vip.sgd_server" href="vip.sgd_server.html" />
+    <link rel="prev" title="vip.sbn_model" href="vip.sbn_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libsbn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">libsbn concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="libsbn.html">libsbn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libsbn.beagle_flags.html">libsbn.beagle_flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.benchmark.html">vip.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.branch_model.html">vip.branch_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.burrito.html">vip.burrito</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.cli.html">vip.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.optimizers.html">vip.optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.priors.html">vip.priors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sbn_model.html">vip.sbn_model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">vip.scalar_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sgd_server.html">vip.sgd_server</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libsbn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>vip.scalar_model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/vip.scalar_model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-vip.scalar_model">
+<span id="vip-scalar-model"></span><h1>vip.scalar_model<a class="headerlink" href="#module-vip.scalar_model" title="Permalink to this headline">¶</a></h1>
+<p>Classes to model scalar quantities with various distributions.</p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponential_factory</span></code>(params)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma_factory</span></code>(params)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lognormal_factory</span></code>(params)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">of_name</span></code>(name, *, variable_count)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncated_lognormal_factory</span></code>(params)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#vip.scalar_model.LogNormalModel" title="vip.scalar_model.LogNormalModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LogNormalModel</span></code></a>(initial_params, variable_count)</p></td>
+<td><p>A log-normal model with hand-computed gradients.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#vip.scalar_model.ScalarModel" title="vip.scalar_model.ScalarModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalarModel</span></code></a>(initial_params, variable_count)</p></td>
+<td><p>An abstract base class for Scalar Models.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#vip.scalar_model.TFScalarModel" title="vip.scalar_model.TFScalarModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFScalarModel</span></code></a>(q_factory, initial_params, …)</p></td>
+<td><p>An object to model a collection of scalar variables with a given distribution type via TensorFlow.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="vip.scalar_model.LogNormalModel">
+<em class="property">class </em><code class="sig-prename descclassname">vip.scalar_model.</code><code class="sig-name descname">LogNormalModel</code><span class="sig-paren">(</span><em class="sig-param">initial_params</em>, <em class="sig-param">variable_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#LogNormalModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.LogNormalModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A log-normal model with hand-computed gradients.</p>
+<dl class="method">
+<dt id="vip.scalar_model.LogNormalModel.general_log_prob">
+<em class="property">static </em><code class="sig-name descname">general_log_prob</code><span class="sig-paren">(</span><em class="sig-param">values</em>, <em class="sig-param">mu</em>, <em class="sig-param">sigma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#LogNormalModel.general_log_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.LogNormalModel.general_log_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the log joint probability of the given values.</p>
+<p>The density is:
+frac{1}{x sigma sqrt{2 pi}} exp(-frac{(log x - mu)^2}{2 sigma^2})</p>
+<p>So the log density is
+-(log x + log sigma + 0.5 log(2 pi) + frac{(log x - mu)^2}{2 sigma^2})</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.LogNormalModel.log_prob">
+<code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param">values</em>, <em class="sig-param">which_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#LogNormalModel.log_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.LogNormalModel.log_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the log probability for the given values of the variables
+specified in which_variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.LogNormalModel.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">px_which_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#LogNormalModel.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.LogNormalModel.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a sample from the model.</p>
+<p>px_which_variables: a list of arrays, the ith entry of which is what
+variables we use for the ith particle, and get out the sample.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.LogNormalModel.sample_all">
+<code class="sig-name descname">sample_all</code><span class="sig-paren">(</span><em class="sig-param">particle_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#LogNormalModel.sample_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.LogNormalModel.sample_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample all of the variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.LogNormalModel.sample_and_gradients">
+<code class="sig-name descname">sample_and_gradients</code><span class="sig-paren">(</span><em class="sig-param">px_which_variables</em>, <em class="sig-param">prebaked_sample=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#LogNormalModel.sample_and_gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.LogNormalModel.sample_and_gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>prebaked_sample allows us to pass in a sample rather than actually
+sampling (handy for testing).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vip.scalar_model.ScalarModel">
+<em class="property">class </em><code class="sig-prename descclassname">vip.scalar_model.</code><code class="sig-name descname">ScalarModel</code><span class="sig-paren">(</span><em class="sig-param">initial_params</em>, <em class="sig-param">variable_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#ScalarModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.ScalarModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An abstract base class for Scalar Models.</p>
+<p>See the tex file in <cite>doc</cite> to understand the notation here, and Burrito for notes
+about abbreviations.</p>
+<ul class="simple">
+<li><p>p is the target probability.</p></li>
+<li><p>q is the distribution that we’re fitting to p.</p></li>
+</ul>
+<dl class="method">
+<dt id="vip.scalar_model.ScalarModel.log_prob">
+<em class="property">abstract </em><code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param">values</em>, <em class="sig-param">which_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#ScalarModel.log_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.ScalarModel.log_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the log probability for the given values of the variables
+specified in which_variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.ScalarModel.sample_and_gradients">
+<em class="property">abstract </em><code class="sig-name descname">sample_and_gradients</code><span class="sig-paren">(</span><em class="sig-param">px_which_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#ScalarModel.sample_and_gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.ScalarModel.sample_and_gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample the variables in which_variables and take a gradient with
+respect to them.</p>
+<p>px_which_variables is a list of arrays, the ith entry of which is what
+variables we use for the ith particle, and get out the sample and some
+gradients as described above.</p>
+<p>On output:</p>
+<ul class="simple">
+<li><p>sample is the desired sample.</p></li>
+<li><p>dg_dpsi is the gradient of the reparametrization function with respect to the
+scalar model parameters, and is laid out as (particle, variable, parameter).</p></li>
+<li><p>dlog_qg_dpsi is the gradient of the sum of the q function over particles
+with respect to the scalar model parameters, and is laid out as (variable,
+parameter).</p></li>
+</ul>
+<p>For both of the last two arrays, the variable indexing is in terms of the
+complete set of variables.</p>
+<p>See the tex for details.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vip.scalar_model.TFScalarModel">
+<em class="property">class </em><code class="sig-prename descclassname">vip.scalar_model.</code><code class="sig-name descname">TFScalarModel</code><span class="sig-paren">(</span><em class="sig-param">q_factory</em>, <em class="sig-param">initial_params</em>, <em class="sig-param">variable_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#TFScalarModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.TFScalarModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to model a collection of scalar variables with a given
+distribution type via TensorFlow.</p>
+<p>See ScalarModel for more information.</p>
+<dl class="method">
+<dt id="vip.scalar_model.TFScalarModel.log_prob">
+<code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param">values</em>, <em class="sig-param">which_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#TFScalarModel.log_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.TFScalarModel.log_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the log joint probability of the given values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.TFScalarModel.mode_match">
+<code class="sig-name descname">mode_match</code><span class="sig-paren">(</span><em class="sig-param">modes</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#TFScalarModel.mode_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.TFScalarModel.mode_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some crazy heuristics for mode matching with the given branch
+lengths.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.scalar_model.TFScalarModel.sample_and_gradients">
+<code class="sig-name descname">sample_and_gradients</code><span class="sig-paren">(</span><em class="sig-param">px_which_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/scalar_model.html#TFScalarModel.sample_and_gradients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.scalar_model.TFScalarModel.sample_and_gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample the variables in which_variables and take a gradient with
+respect to them.</p>
+<p>px_which_variables is a list of arrays, the ith entry of which is what
+variables we use for the ith particle, and get out the sample and some
+gradients as described above.</p>
+<p>On output:</p>
+<ul class="simple">
+<li><p>sample is the desired sample.</p></li>
+<li><p>dg_dpsi is the gradient of the reparametrization function with respect to the
+scalar model parameters, and is laid out as (particle, variable, parameter).</p></li>
+<li><p>dlog_qg_dpsi is the gradient of the sum of the q function over particles
+with respect to the scalar model parameters, and is laid out as (variable,
+parameter).</p></li>
+</ul>
+<p>For both of the last two arrays, the variable indexing is in terms of the
+complete set of variables.</p>
+<p>See the tex for details.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vip.sgd_server.html" class="btn btn-neutral float-right" title="vip.sgd_server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vip.sbn_model.html" class="btn btn-neutral float-left" title="vip.sbn_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Team PhyloVI
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

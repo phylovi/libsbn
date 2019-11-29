@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>vip.optimizers &mdash; libsbn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="vip.priors" href="vip.priors.html" />
+    <link rel="prev" title="vip.cli" href="vip.cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libsbn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">libsbn concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="libsbn.html">libsbn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libsbn.beagle_flags.html">libsbn.beagle_flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.benchmark.html">vip.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.branch_model.html">vip.branch_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.burrito.html">vip.burrito</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.cli.html">vip.cli</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">vip.optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.priors.html">vip.priors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sbn_model.html">vip.sbn_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.scalar_model.html">vip.scalar_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sgd_server.html">vip.sgd_server</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libsbn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>vip.optimizers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/vip.optimizers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-vip.optimizers">
+<span id="vip-optimizers"></span><h1>vip.optimizers<a class="headerlink" href="#module-vip.optimizers" title="Permalink to this headline">¶</a></h1>
+<p>Classes that perform optimization and contain relevant state.</p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">of_name</span></code>(name, sbn_model, scalar_model, …)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#vip.optimizers.BaseOptimizer" title="vip.optimizers.BaseOptimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseOptimizer</span></code></a>(sbn_model, scalar_model, …)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#vip.optimizers.BumpStepsizeOptimizer" title="vip.optimizers.BumpStepsizeOptimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BumpStepsizeOptimizer</span></code></a>(sbn_model, …)</p></td>
+<td><p>An optimizer that increases the stepsize until it’s too big, then decreases it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#vip.optimizers.SimpleOptimizer" title="vip.optimizers.SimpleOptimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimpleOptimizer</span></code></a>(sbn_model, scalar_model, …)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="vip.optimizers.BaseOptimizer">
+<em class="property">class </em><code class="sig-prename descclassname">vip.optimizers.</code><code class="sig-name descname">BaseOptimizer</code><span class="sig-paren">(</span><em class="sig-param">sbn_model: vip.sbn_model.SBNModel</em>, <em class="sig-param">scalar_model: vip.scalar_model.ScalarModel</em>, <em class="sig-param">elbo_estimator_fun</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#BaseOptimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.BaseOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="vip.optimizers.BaseOptimizer._simple_gradient_step">
+<code class="sig-name descname">_simple_gradient_step</code><span class="sig-paren">(</span><em class="sig-param">grad_dict</em>, <em class="sig-param">history=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#BaseOptimizer._simple_gradient_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.BaseOptimizer._simple_gradient_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just take a simple gradient step.</p>
+<p>scalar_grad is the gradient with respect to the scalar variables.
+sbn_grad is the gradient with respect to the SBN variables.</p>
+<p>Return True if the gradient step was successful.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.optimizers.BaseOptimizer.update">
+<em class="property">abstract </em><code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">gradient_step_was_successful</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#BaseOptimizer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.BaseOptimizer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the parameters of the optimizer based on any information it
+stores.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vip.optimizers.BumpStepsizeOptimizer">
+<em class="property">class </em><code class="sig-prename descclassname">vip.optimizers.</code><code class="sig-name descname">BumpStepsizeOptimizer</code><span class="sig-paren">(</span><em class="sig-param">sbn_model: vip.sbn_model.SBNModel</em>, <em class="sig-param">scalar_model: vip.scalar_model.ScalarModel</em>, <em class="sig-param">elbo_estimator_fun</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#BumpStepsizeOptimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.BumpStepsizeOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An optimizer that increases the stepsize until it’s too big, then
+decreases it.</p>
+<dl class="method">
+<dt id="vip.optimizers.BumpStepsizeOptimizer._simple_gradient_step">
+<code class="sig-name descname">_simple_gradient_step</code><span class="sig-paren">(</span><em class="sig-param">grad_dict</em>, <em class="sig-param">history=None</em><span class="sig-paren">)</span><a class="headerlink" href="#vip.optimizers.BumpStepsizeOptimizer._simple_gradient_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just take a simple gradient step.</p>
+<p>scalar_grad is the gradient with respect to the scalar variables.
+sbn_grad is the gradient with respect to the SBN variables.</p>
+<p>Return True if the gradient step was successful.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.optimizers.BumpStepsizeOptimizer._turn_around">
+<code class="sig-name descname">_turn_around</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#BumpStepsizeOptimizer._turn_around"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.BumpStepsizeOptimizer._turn_around" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggered when the stepsize has gotten too big or a gradient step
+fails, restoring the previously best seen parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.optimizers.BumpStepsizeOptimizer.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">gradient_step_was_successful</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#BumpStepsizeOptimizer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.BumpStepsizeOptimizer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the parameters of the optimizer based on any information it
+stores.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vip.optimizers.SimpleOptimizer">
+<em class="property">class </em><code class="sig-prename descclassname">vip.optimizers.</code><code class="sig-name descname">SimpleOptimizer</code><span class="sig-paren">(</span><em class="sig-param">sbn_model: vip.sbn_model.SBNModel</em>, <em class="sig-param">scalar_model: vip.scalar_model.ScalarModel</em>, <em class="sig-param">elbo_estimator_fun</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#SimpleOptimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.SimpleOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="vip.optimizers.SimpleOptimizer._simple_gradient_step">
+<code class="sig-name descname">_simple_gradient_step</code><span class="sig-paren">(</span><em class="sig-param">grad_dict</em>, <em class="sig-param">history=None</em><span class="sig-paren">)</span><a class="headerlink" href="#vip.optimizers.SimpleOptimizer._simple_gradient_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just take a simple gradient step.</p>
+<p>scalar_grad is the gradient with respect to the scalar variables.
+sbn_grad is the gradient with respect to the SBN variables.</p>
+<p>Return True if the gradient step was successful.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.optimizers.SimpleOptimizer.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">gradient_step_was_successful</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/optimizers.html#SimpleOptimizer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.optimizers.SimpleOptimizer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the parameters of the optimizer based on any information it
+stores.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vip.priors.html" class="btn btn-neutral float-right" title="vip.priors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vip.cli.html" class="btn btn-neutral float-left" title="vip.cli" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Team PhyloVI
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

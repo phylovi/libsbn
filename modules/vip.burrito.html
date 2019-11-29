@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>vip.burrito &mdash; libsbn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="vip.cli" href="vip.cli.html" />
+    <link rel="prev" title="vip.branch_model" href="vip.branch_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libsbn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">libsbn concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="libsbn.html">libsbn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libsbn.beagle_flags.html">libsbn.beagle_flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.benchmark.html">vip.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.branch_model.html">vip.branch_model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">vip.burrito</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.cli.html">vip.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.optimizers.html">vip.optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.priors.html">vip.priors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sbn_model.html">vip.sbn_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.scalar_model.html">vip.scalar_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sgd_server.html">vip.sgd_server</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libsbn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>vip.burrito</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/vip.burrito.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-vip.burrito">
+<span id="vip-burrito"></span><h1>vip.burrito<a class="headerlink" href="#module-vip.burrito" title="Permalink to this headline">¶</a></h1>
+<p>The Burrito class wraps an instance and relevant model data.</p>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#vip.burrito.Burrito" title="vip.burrito.Burrito"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Burrito</span></code></a>(*, mcmc_nexus_path, …[, …])</p></td>
+<td><p>A class to wrap an instance and relevant model data.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="vip.burrito.Burrito">
+<em class="property">class </em><code class="sig-prename descclassname">vip.burrito.</code><code class="sig-name descname">Burrito</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">mcmc_nexus_path</em>, <em class="sig-param">burn_in_fraction</em>, <em class="sig-param">fasta_path</em>, <em class="sig-param">phylo_model_specification</em>, <em class="sig-param">branch_model_name</em>, <em class="sig-param">scalar_model_name</em>, <em class="sig-param">optimizer_name</em>, <em class="sig-param">particle_count</em>, <em class="sig-param">thread_count=1</em>, <em class="sig-param">use_vimco=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/burrito.html#Burrito"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.burrito.Burrito" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class to wrap an instance and relevant model data.</p>
+<p>Some terminology:</p>
+<ul class="simple">
+<li><p>We sample “particles” in order to calculate the ELBO and to do stochastic gradient
+ascent. This is a handy terminology because it can be used for trees, or scalar
+parameters, etc. We use the prefix <cite>px_</cite> to designate that the first dimension of
+the given object is across particles. For example, <cite>px_branch_lengths</cite> is a list
+of branch length vectors, where the list is across particles.</p></li>
+<li><p>particle_count is the particle count to be used for gradient calculation</p></li>
+</ul>
+<dl class="method">
+<dt id="vip.burrito.Burrito.elbo_of_sample">
+<code class="sig-name descname">elbo_of_sample</code><span class="sig-paren">(</span><em class="sig-param">px_phylo_log_like</em>, <em class="sig-param">px_theta_sample</em>, <em class="sig-param">px_branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/burrito.html#Burrito.elbo_of_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.burrito.Burrito.elbo_of_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>A naive Monte Carlo estimate of the ELBO given a sample.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.burrito.Burrito.estimate_elbo">
+<code class="sig-name descname">estimate_elbo</code><span class="sig-paren">(</span><em class="sig-param">particle_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/burrito.html#Burrito.estimate_elbo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.burrito.Burrito.estimate_elbo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample particle_count particles and then make a naive Monte Carlo
+estimate of the ELBO.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.burrito.Burrito.gradient_step">
+<code class="sig-name descname">gradient_step</code><span class="sig-paren">(</span><em class="sig-param">beta_t=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/burrito.html#Burrito.gradient_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.burrito.Burrito.gradient_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a gradient step.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.burrito.Burrito.px_log_f">
+<code class="sig-name descname">px_log_f</code><span class="sig-paren">(</span><em class="sig-param">px_phylo_log_like</em>, <em class="sig-param">px_theta_sample</em>, <em class="sig-param">px_branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/burrito.html#Burrito.px_log_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.burrito.Burrito.px_log_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vector of f values for each tree.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.burrito.Burrito.sample_topologies">
+<code class="sig-name descname">sample_topologies</code><span class="sig-paren">(</span><em class="sig-param">count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/burrito.html#Burrito.sample_topologies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.burrito.Burrito.sample_topologies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample trees into the instance and return the np’d version of their
+branch length vectors.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vip.cli.html" class="btn btn-neutral float-right" title="vip.cli" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vip.branch_model.html" class="btn btn-neutral float-left" title="vip.branch_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Team PhyloVI
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

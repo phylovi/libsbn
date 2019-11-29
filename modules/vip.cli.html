@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>vip.cli &mdash; libsbn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="vip.optimizers" href="vip.optimizers.html" />
+    <link rel="prev" title="vip.burrito" href="vip.burrito.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libsbn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">libsbn concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="libsbn.html">libsbn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libsbn.beagle_flags.html">libsbn.beagle_flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.benchmark.html">vip.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.branch_model.html">vip.branch_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.burrito.html">vip.burrito</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">vip.cli</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vip">vip</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vip-benchmark">benchmark</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vip.optimizers.html">vip.optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.priors.html">vip.priors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sbn_model.html">vip.sbn_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.scalar_model.html">vip.scalar_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sgd_server.html">vip.sgd_server</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libsbn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>vip.cli</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/vip.cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vip-cli">
+<h1>vip.cli<a class="headerlink" href="#vip-cli" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">vip</span></code> command line interface has a nested subcommand interface.
+The documentation describes the <code class="docutils literal notranslate"><span class="pre">vip</span></code> command and then the various subcommands as nested sections.</p>
+<div class="section" id="vip">
+<h2>vip<a class="headerlink" href="#vip" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vip <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<div class="section" id="vip-benchmark">
+<h3>benchmark<a class="headerlink" href="#vip-benchmark" title="Permalink to this headline">¶</a></h3>
+<p>Do a benchmarking comparison to an MCMC run.</p>
+<p><code class="docutils literal notranslate"><span class="pre">DATA_PATH</span></code> is a path to a directory, which say is named <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p>We assume that <code class="docutils literal notranslate"><span class="pre">X</span></code> contains:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">X_out.t</span></code></dt><dd><p>an MCMC run on a fixed tree topology, and</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">X.fasta</span></code></dt><dd><p>a FASTA file with the same sequence data as used for MCMC.</p>
+</dd>
+</dl>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vip benchmark <span class="o">[</span>OPTIONS<span class="o">]</span> DATA_PATH
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-branch-model">
+<code class="sig-name descname">--branch-model</code><code class="sig-prename descclassname"> &lt;branch_model&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-branch-model" title="Permalink to this definition">¶</a></dt>
+<dd><p>[default: split]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>split|psp</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-scalar-model">
+<code class="sig-name descname">--scalar-model</code><code class="sig-prename descclassname"> &lt;scalar_model&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-scalar-model" title="Permalink to this definition">¶</a></dt>
+<dd><p>[default: lognormal]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>lognormal|tf_lognormal|tf_truncated_lognormal|tf_gamma</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-optimizer">
+<code class="sig-name descname">--optimizer</code><code class="sig-prename descclassname"> &lt;optimizer&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>[default: simple]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>simple|bump</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-step-count">
+<code class="sig-name descname">--step-count</code><code class="sig-prename descclassname"> &lt;step_count&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-step-count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of gradient descent steps to take.  [default: 5]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-particle-count">
+<code class="sig-name descname">--particle-count</code><code class="sig-prename descclassname"> &lt;particle_count&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-particle-count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of particles to use for stochastic gradient estimation.  [default: 10]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-thread-count">
+<code class="sig-name descname">--thread-count</code><code class="sig-prename descclassname"> &lt;thread_count&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-thread-count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of threads to use.  [default: 4]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-out-prefix">
+<code class="sig-name descname">--out-prefix</code><code class="sig-prename descclassname"> &lt;out_prefix&gt;</code><a class="headerlink" href="#cmdoption-vip-benchmark-out-prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path prefix to which output should be saved.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-vip-benchmark-arg-data-path">
+<code class="sig-name descname">DATA_PATH</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-vip-benchmark-arg-data-path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vip.optimizers.html" class="btn btn-neutral float-right" title="vip.optimizers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vip.burrito.html" class="btn btn-neutral float-left" title="vip.burrito" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Team PhyloVI
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

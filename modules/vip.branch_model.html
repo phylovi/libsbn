@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>vip.branch_model &mdash; libsbn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="vip.burrito" href="vip.burrito.html" />
+    <link rel="prev" title="vip.benchmark" href="vip.benchmark.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libsbn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">libsbn concepts</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="libsbn.html">libsbn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libsbn.beagle_flags.html">libsbn.beagle_flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.benchmark.html">vip.benchmark</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">vip.branch_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.burrito.html">vip.burrito</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.cli.html">vip.cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.optimizers.html">vip.optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.priors.html">vip.priors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sbn_model.html">vip.sbn_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.scalar_model.html">vip.scalar_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vip.sgd_server.html">vip.sgd_server</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libsbn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>vip.branch_model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/vip.branch_model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-vip.branch_model">
+<span id="vip-branch-model"></span><h1>vip.branch_model<a class="headerlink" href="#module-vip.branch_model" title="Permalink to this headline">¶</a></h1>
+<p>Classes for modeling phylogenetic branch lengths.</p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">of_name</span></code>(branch_model_name, …)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#vip.branch_model.BranchModel" title="vip.branch_model.BranchModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BranchModel</span></code></a>(scalar_model_name, inst)</p></td>
+<td><p>Our abstract base class for branch lengths.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#vip.branch_model.SplitModel" title="vip.branch_model.SplitModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SplitModel</span></code></a>(scalar_model_name, inst)</p></td>
+<td><p>Branch modeling parameterized by splits.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="vip.branch_model.BranchModel">
+<em class="property">class </em><code class="sig-prename descclassname">vip.branch_model.</code><code class="sig-name descname">BranchModel</code><span class="sig-paren">(</span><em class="sig-param">scalar_model_name</em>, <em class="sig-param">inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#BranchModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.BranchModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Our abstract base class for branch lengths.</p>
+<dl class="method">
+<dt id="vip.branch_model.BranchModel._compute_variable_count">
+<em class="property">abstract static </em><code class="sig-name descname">_compute_variable_count</code><span class="sig-paren">(</span><em class="sig-param">inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#BranchModel._compute_variable_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.BranchModel._compute_variable_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the number of variables needed for a given instance.</p>
+<p>This is a private method that is just used in the initialization
+of the BranchModel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.BranchModel.mode_match">
+<em class="property">abstract </em><code class="sig-name descname">mode_match</code><span class="sig-paren">(</span><em class="sig-param">split_modes</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#BranchModel.mode_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.BranchModel.mode_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do some crazy heuristics for mode matching.</p>
+<p>split_modes is the set of modes as indexed by the splits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.BranchModel.sample">
+<em class="property">abstract </em><code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">px_branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#BranchModel.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.BranchModel.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the branch model.</p>
+<p>Returns a list of samples over particles, each one being a
+sample indexed by branches according to
+px_branch_representation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.BranchModel.sample_all">
+<em class="property">abstract </em><code class="sig-name descname">sample_all</code><span class="sig-paren">(</span><em class="sig-param">particle_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#BranchModel.sample_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.BranchModel.sample_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample all of the splits from the model.</p>
+<p>Only makes sense for split-based models.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vip.branch_model.PSPModel">
+<em class="property">class </em><code class="sig-prename descclassname">vip.branch_model.</code><code class="sig-name descname">PSPModel</code><span class="sig-paren">(</span><em class="sig-param">scalar_model_name</em>, <em class="sig-param">inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>The object containing a PSP model.</p>
+<p>See <cite>psp_indexer.hpp</cite> for a description of how the PSPs are indexed.
+Especially important: the after_rootsplits_index acts as a sentinel
+for when there isn’t a component of a given PSP. We have an entry
+for that sentinel so we don’t have to write special-purpose code,
+and instead keep that entry at zero so that it doesn’t contribute
+anything. That way we can just do the usual summation across PSP
+components.</p>
+<dl class="method">
+<dt id="vip.branch_model.PSPModel._compute_variable_count">
+<em class="property">static </em><code class="sig-name descname">_compute_variable_count</code><span class="sig-paren">(</span><em class="sig-param">inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel._compute_variable_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel._compute_variable_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the number of variables needed for a given instance.</p>
+<p>This is a private method that is just used in the initialization
+of the BranchModel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.PSPModel._make_lognormal_params">
+<code class="sig-name descname">_make_lognormal_params</code><span class="sig-paren">(</span><em class="sig-param">branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel._make_lognormal_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel._make_lognormal_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sum parameters across the branch representation so that we get a
+full lognormal parametrization.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.PSPModel.mode_match">
+<code class="sig-name descname">mode_match</code><span class="sig-paren">(</span><em class="sig-param">split_modes</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel.mode_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel.mode_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do some crazy heuristics for mode matching.</p>
+<p>split_modes is the set of modes as indexed by the splits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.PSPModel.px_branch_representation">
+<code class="sig-name descname">px_branch_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel.px_branch_representation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel.px_branch_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The PSP-based representation of each of the trees.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.PSPModel.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">px_branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the branch model.</p>
+<p>Returns a list of samples over particles, each one being a
+sample indexed by branches according to
+px_branch_representation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.PSPModel.sample_all">
+<code class="sig-name descname">sample_all</code><span class="sig-paren">(</span><em class="sig-param">particle_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel.sample_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel.sample_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample all of the splits from the model.</p>
+<p>Only makes sense for split-based models.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.PSPModel.scalar_grad">
+<code class="sig-name descname">scalar_grad</code><span class="sig-paren">(</span><em class="sig-param">theta_sample</em>, <em class="sig-param">branch_gradients</em>, <em class="sig-param">px_branch_representation</em>, <em class="sig-param">dg_dpsi</em>, <em class="sig-param">dlog_qg_dpsi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#PSPModel.scalar_grad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.PSPModel.scalar_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a gradient for the scalar parameters in terms of splits.</p>
+<p>See the tex for details. Comments of the form eq:XX refer to
+equations in the tex. See class-level docstring for information
+about <cite>px_</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="vip.branch_model.SplitModel">
+<em class="property">class </em><code class="sig-prename descclassname">vip.branch_model.</code><code class="sig-name descname">SplitModel</code><span class="sig-paren">(</span><em class="sig-param">scalar_model_name</em>, <em class="sig-param">inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Branch modeling parameterized by splits.</p>
+<dl class="method">
+<dt id="vip.branch_model.SplitModel._compute_variable_count">
+<em class="property">static </em><code class="sig-name descname">_compute_variable_count</code><span class="sig-paren">(</span><em class="sig-param">inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel._compute_variable_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel._compute_variable_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the number of variables needed for a given instance.</p>
+<p>This is a private method that is just used in the initialization
+of the BranchModel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.SplitModel.log_prob_generator">
+<code class="sig-name descname">log_prob_generator</code><span class="sig-paren">(</span><em class="sig-param">px_theta_sample</em>, <em class="sig-param">px_branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel.log_prob_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel.log_prob_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a generator giving the values of the log probabilities.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.SplitModel.mode_match">
+<code class="sig-name descname">mode_match</code><span class="sig-paren">(</span><em class="sig-param">split_modes</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel.mode_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel.mode_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do some crazy heuristics for mode matching.</p>
+<p>split_modes is the set of modes as indexed by the splits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.SplitModel.px_branch_representation">
+<code class="sig-name descname">px_branch_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel.px_branch_representation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel.px_branch_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The split-based representation of each of the trees.</p>
+<p>The ith entry of the resulting list is the representation of the
+ith tree. The jth entry of such a representation is the index of
+the split corresponding to the ith branch.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.SplitModel.sample">
+<code class="sig-name descname">sample</code><span class="sig-paren">(</span><em class="sig-param">px_branch_representation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample from the branch model.</p>
+<p>Returns a list of samples over particles, each one being a
+sample indexed by branches according to
+px_branch_representation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.SplitModel.sample_all">
+<code class="sig-name descname">sample_all</code><span class="sig-paren">(</span><em class="sig-param">particle_count</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel.sample_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel.sample_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample all of the splits from the model.</p>
+<p>Only makes sense for split-based models.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vip.branch_model.SplitModel.scalar_grad">
+<code class="sig-name descname">scalar_grad</code><span class="sig-paren">(</span><em class="sig-param">theta_sample</em>, <em class="sig-param">phylo_gradients</em>, <em class="sig-param">px_branch_to_split</em>, <em class="sig-param">dg_dpsi</em>, <em class="sig-param">dlog_qg_dpsi</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vip/branch_model.html#SplitModel.scalar_grad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vip.branch_model.SplitModel.scalar_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a gradient for the scalar parameters in terms of splits.</p>
+<p>See the tex for details. Comments of the form eq:XX refer to
+equations in the tex. See class-level docstring for information
+about <cite>px_</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vip.burrito.html" class="btn btn-neutral float-right" title="vip.burrito" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vip.benchmark.html" class="btn btn-neutral float-left" title="vip.benchmark" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Team PhyloVI
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
