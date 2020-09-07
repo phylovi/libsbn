@@ -35,6 +35,7 @@
 
 #include <condition_variable>
 #include <functional>
+#include <iostream>
 #include <mutex>
 #include <queue>
 #include <thread>
@@ -75,6 +76,9 @@ class TaskProcessor {
         threads_[i].join();
       }
     }
+    if (exception_ptr_ != nullptr) {
+      std::rethrow_exception(exception_ptr_);
+    }
   }
 
  private:
@@ -84,29 +88,34 @@ class TaskProcessor {
   std::vector<std::thread> threads_;
   std::mutex lock_;
   std::condition_variable condition_variable_;
+  std::exception_ptr exception_ptr_ = nullptr;
 
   void thread_handler() {
-    std::unique_lock<std::mutex> lock(lock_);
-    while (work_queue_.size()) {
-      // Wait until we have an executor available. This right here is the key of
-      // the whole implementation, giving a nice way to wait until the resources
-      // are avaiable to run the next thing in the queue.
-      condition_variable_.wait(lock, [this] { return executor_queue_.size(); });
-      // After wait, we own the lock.
-      if (work_queue_.size()) {
-        auto work = work_queue_.front();
-        work_queue_.pop();
-        auto executor = executor_queue_.front();
-        executor_queue_.pop();
-        // Unlock now that we're done messing with the queues.
-        lock.unlock();
-        // Run task.
-        task_(executor, work);
-        // Lock again so that we can mess with the queues.
-        lock.lock();
-        // We're done with the executor so we can put it back on the queue.
-        executor_queue_.push(executor);
+    try {
+      std::unique_lock<std::mutex> lock(lock_);
+      while (work_queue_.size()) {
+        // Wait until we have an executor available. This right here is the key of
+        // the whole implementation, giving a nice way to wait until the resources
+        // are avaiable to run the next thing in the queue.
+        condition_variable_.wait(lock, [this] { return executor_queue_.size(); });
+        // After wait, we own the lock.
+        if (work_queue_.size()) {
+          auto work = work_queue_.front();
+          work_queue_.pop();
+          auto executor = executor_queue_.front();
+          executor_queue_.pop();
+          // Unlock now that we're done messing with the queues.
+          lock.unlock();
+          // Run task.
+          task_(executor, work);
+          // Lock again so that we can mess with the queues.
+          lock.lock();
+          // We're done with the executor so we can put it back on the queue.
+          executor_queue_.push(executor);
+        }
       }
+    } catch (...) {
+      exception_ptr_ = std::current_exception();
     }
   }
 };
