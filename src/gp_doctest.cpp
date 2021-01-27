@@ -149,6 +149,30 @@ TEST_CASE("GPInstance: gradient calculation") {
   CHECK_LT(fabs(log_lik_and_derivative.second - -0.6109379521), 1e-6);
 }
 
+TEST_CASE("GPInstance: multi-site gradient calculation") {
+  auto inst = MakeHelloGPInstance();
+  auto engine = inst.GetEngine();
+
+  inst.ResetMarginalLikelihoodAndPopulatePLVs();
+  inst.ComputeLikelihoods();
+
+  size_t root_idx = root;
+  size_t child_idx = jupiter;
+  size_t hello_node_count = 5;
+  size_t root_jupiter_idx = 2;
+
+  size_t leafward_idx =
+      GPDAG::GetPLVIndexStatic(GPDAG::PLVType::P, hello_node_count, child_idx);
+  size_t rootward_idx =
+      GPDAG::GetPLVIndexStatic(GPDAG::PLVType::R, hello_node_count, root_idx);
+  OptimizeBranchLength op{leafward_idx, rootward_idx, root_jupiter_idx};
+  DoublePair log_lik_and_derivative = engine->LogLikelihoodAndDerivative(op);
+  // Expect log lik: -84.77961943.
+  // Expect log lik derivative: -18.22479569.
+  CHECK_LT(fabs(log_lik_and_derivative.first - -84.77961943), 1e-6);
+  CHECK_LT(fabs(log_lik_and_derivative.second - -18.22479569), 1e-6);
+}
+
 GPInstance MakeFluAGPInstance(double rescaling_threshold) {
   GPInstance inst("_ignore/mmapped_plv.data");
   inst.ReadFastaFile("data/fluA.fa");
@@ -218,8 +242,10 @@ TEST_CASE("GPInstance: hotstart branch lengths") {
       0.1892030000, 0.1894900000, 0.1895430000, 0.1896900000, 0.1905710000;
   double true_mean = hotstart_expected_branch_lengths.array().mean();
   inst.HotStartBranchLengths();
-  // TODO: The correct index on mac is 1, not 2. Need to make this test more general to pass on all systems.
-  std::cout << "The hotstart branch lengths are: " << inst.GetEngine()->GetBranchLengths();
+  // TODO: The correct index on mac is 1, not 2. Need to make this test more general to
+  // pass on all systems.
+  std::cout << "The hotstart branch lengths are: "
+            << inst.GetEngine()->GetBranchLengths();
   CHECK_EQ(true_mean, inst.GetEngine()->GetBranchLengths()(2));
 }
 
