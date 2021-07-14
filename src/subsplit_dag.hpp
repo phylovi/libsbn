@@ -24,7 +24,7 @@
 // of indices, as do all of the rotated indices. The range of indices for such a set of
 // edges is given by the `parent_to_range_` map.
 // There is also a `subsplit_to_id_` map that maps from the subsplit bitset of the DAG
-// node to the node Id.
+// node (and its rotated version) to the node Id.
 // The rootsplits are held separately, but those are going out with #273.
 
 #ifndef SRC_SUBSPLIT_DAG_HPP_
