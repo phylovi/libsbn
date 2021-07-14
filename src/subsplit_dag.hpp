@@ -53,6 +53,7 @@ class SubsplitDAG {
   SubsplitDAG();
   explicit SubsplitDAG(const RootedTreeCollection &tree_collection);
 
+  // Root node is not counted towards total node count
   size_t NodeCount() const;
   // How many topologies can be expressed by the GPDAG? Expressed as a double because
   // this number can be big.
@@ -233,10 +234,11 @@ class SubsplitDAG {
   void CreateAndInsertNode(const Bitset &subsplit);
   // Connect the `idx` node to its children, and its children to it, rotating as needed.
   void ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx, bool rotated);
+  // Connect the root node to the rootsplits
+  void ConnectRootNode();
 
   void BuildNodesDepthFirst(const SizeBitsetMap &index_to_child, const Bitset &subsplit,
                             std::unordered_set<Bitset> &visited_subsplits);
-  void MakeRootNode();
   void BuildNodes(const SizeBitsetMap &index_to_child);
   void BuildEdges(const SizeBitsetMap &index_to_child);
   void BuildDAGEdgesFromGPCSPIndexer(BitsetSizeMap &gpcsp_indexer);

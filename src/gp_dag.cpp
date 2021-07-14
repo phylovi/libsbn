@@ -31,7 +31,8 @@ size_t GPDAG::GetPLVIndexStatic(PLVType plv_type, size_t node_count, size_t src_
 }
 
 size_t GPDAG::GetPLVIndex(PLVType plv_type, size_t src_idx) const {
-  return GetPLVIndexStatic(plv_type, dag_nodes_.size(), src_idx);
+  return GetPLVIndexStatic(plv_type, dag_nodes_.size() - 1,
+                           src_idx);  // replace -1 #273
 }
 
 // The R PLV update that corresponds to our rotation status.
@@ -185,7 +186,7 @@ GPOperationVector GPDAG::OptimizeSBNParameters() const {
 
 GPOperationVector GPDAG::SetLeafwardZero() const {
   GPOperationVector operations;
-  const auto node_count = dag_nodes_.size();
+  const auto node_count = dag_nodes_.size() - 1;  // replace -1 #273
   for (size_t i = 0; i < node_count; i++) {
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::R_HAT, i)});
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::R, i)});
@@ -206,7 +207,7 @@ GPOperationVector GPDAG::SetRhatToStationary() const {
 
 GPOperationVector GPDAG::SetRootwardZero() const {
   GPOperationVector operations;
-  const auto node_count = dag_nodes_.size();
+  const auto node_count = dag_nodes_.size() - 1;  // replace -1 #273
   for (size_t i = taxon_count_; i < node_count; i++) {
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::P, i)});
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::P_HAT, i)});
