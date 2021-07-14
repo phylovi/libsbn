@@ -2,7 +2,30 @@
 // libsbn is free software under the GPLv3; see LICENSE file for details.
 //
 // The purpose of this class is to hold a DAG built from the parent-child relationships
-// of the subsplits.
+// of the subsplits. We wish to have information associated with both the nodes and
+// edges of the DAG. Our strategy for doing that is via non-negative integer indices:
+// nodes have a unique size_t `Id`, and each edge has a unique `gpcsp_idx`. We can then
+// store arbitrary associated information in other data structures associated with these
+// indices.
+//
+// The DAG has a well-defined notion of rootward and leafward.
+//
+// The data structure for this DAG is as follows:
+// - The nodes of the DAG have vectors of indices representing their edges to other
+// nodes. These include edges to the children (leafward edges) and also the edges that
+// are connecting to that node (rootward edges). Furthermore, these sets of edges are
+// separated into two classes: those that split apart the left component of the subsplit
+// ("rotated" edges) and those that split apart the right component of the subsplit
+// ("sorted" edges). The nodes of the DAG also include bitsets describing the subsplit
+// that they represent.
+// - The edges of the DAG are indexed separately, and there is a map (`dag_edges_`)
+// which maps from pairs of node Ids to this edge index. These DAG edges are indexed
+// such that all of the sorted edges descending from a given node have a contiguous set
+// of indices, as do all of the rotated indices. The range of indices for such a set of
+// edges is given by the `parent_to_range_` map.
+// There is also a `subsplit_to_id_` map that maps from the subsplit bitset of the DAG
+// node to the node Id.
+// The rootsplits are held separately, but those are going out with #273.
 
 #ifndef SRC_SUBSPLIT_DAG_HPP_
 #define SRC_SUBSPLIT_DAG_HPP_
