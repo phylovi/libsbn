@@ -466,6 +466,17 @@ void SubsplitDAG::BuildNodesDepthFirst(const SizeBitsetMap &index_to_child,
   CreateAndInsertNode(subsplit);
 }
 
+void SubsplitDAG::MakeRootNode() {
+  Bitset subsplit(taxon_count_);
+  CreateAndInsertNode(subsplit + ~subsplit);
+  const auto root_node = GetDAGNode(dag_nodes_.size() - 1);
+  for (const auto &rootsplit : rootsplits_) {
+    const auto child_node = GetDAGNode(subsplit_to_id_.at(rootsplit + ~rootsplit));
+    root_node->AddLeafwardSorted(child_node->Id());
+    child_node->AddRootwardSorted(root_node->Id());
+  }
+}
+
 void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child) {
   std::unordered_set<Bitset> visited_subsplits;
 
@@ -482,10 +493,12 @@ void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child) {
     const auto subsplit = rootsplit + ~rootsplit;
     BuildNodesDepthFirst(index_to_child, subsplit, visited_subsplits);
   }
+
+  MakeRootNode();
 }
 
 void SubsplitDAG::BuildEdges(const SizeBitsetMap &index_to_child) {
-  for (size_t i = taxon_count_; i < dag_nodes_.size(); i++) {
+  for (size_t i = taxon_count_; i < dag_nodes_.size() - 1; i++) {
     ConnectNodes(index_to_child, i, false);
     ConnectNodes(index_to_child, i, true);
   }

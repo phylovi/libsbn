@@ -213,6 +213,7 @@ class SubsplitDAG {
 
   void BuildNodesDepthFirst(const SizeBitsetMap &index_to_child, const Bitset &subsplit,
                             std::unordered_set<Bitset> &visited_subsplits);
+  void MakeRootNode();
   void BuildNodes(const SizeBitsetMap &index_to_child);
   void BuildEdges(const SizeBitsetMap &index_to_child);
   void BuildDAGEdgesFromGPCSPIndexer(BitsetSizeMap &gpcsp_indexer);
