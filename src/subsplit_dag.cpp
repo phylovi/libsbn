@@ -48,9 +48,7 @@ void SubsplitDAG::CountTopologies() {
       [this](size_t root_id) { topology_count_ += topology_count_below_[root_id]; });
 }
 
-size_t SubsplitDAG::NodeCount() const {
-  return dag_nodes_.size() - 1;
-}  // replace -1 #273
+size_t SubsplitDAG::NodeCount() const { return dag_nodes_.size(); }
 
 double SubsplitDAG::TopologyCount() const { return topology_count_; }
 
@@ -146,7 +144,7 @@ size_t SubsplitDAG::GetRootsplitIndex(const Bitset &rootsplit) const {
 }
 
 size_t SubsplitDAG::RootsplitIndexOfId(size_t root_id) const {
-  return dag_edges_.at({root_id, root_id});  // #273
+  return dag_edges_.at({root_node_id_, root_id});
 }
 
 size_t SubsplitDAG::GetGPCSPIndex(const Bitset &parent_subsplit,
@@ -254,7 +252,7 @@ EigenVectorXd SubsplitDAG::BuildUniformOnAllTopologiesPrior() const {
   for (const auto &[parent_child_id, gpcsp_idx] : dag_edges_) {
     const auto &[parent_id, child_id] = parent_child_id;
     size_t child0_taxon_count, child1_taxon_count;
-    if (parent_id == child_id) {  // #273
+    if (parent_id == root_node_id_) {
       child0_taxon_count = GetDAGNode(child_id)->GetBitset().SubsplitChunk(0).Count();
       child1_taxon_count = static_cast<size_t>(taxon_count_ - child0_taxon_count);
     } else {
@@ -273,10 +271,8 @@ EigenVectorXd SubsplitDAG::BuildUniformOnAllTopologiesPrior() const {
 }
 
 void SubsplitDAG::IterateOverRealNodes(const NodeLambda &f) const {
-  Assert(taxon_count_ < dag_nodes_.size() - 1,
-         "No real DAG nodes!");  // replace -1 #273
-  for (auto it = dag_nodes_.cbegin() + taxon_count_; it < dag_nodes_.cend() - 1;
-       it++) {  // replace -1 #273
+  Assert(taxon_count_ < dag_nodes_.size(), "No real DAG nodes!");
+  for (auto it = dag_nodes_.cbegin() + taxon_count_; it < dag_nodes_.cend(); it++) {
     f((*it).get());
   }
 }
@@ -307,7 +303,7 @@ void SubsplitDAG::IterateOverLeafwardEdgesAndChildren(
 
 void SubsplitDAG::IterateOverRootwardEdges(const SubsplitDAGNode *node,
                                            const EdgeDestinationLambda &f) const {
-  if (not node->IsRoot()) {
+  if (not node->IsRootsplit()) {
     for (bool rotated : {false, true}) {
       for (const size_t parent_idx : node->GetRootward(rotated)) {
         f(rotated, GetDAGNode(parent_idx));
@@ -439,6 +435,13 @@ void SubsplitDAG::CreateAndInsertNode(const Bitset &subsplit) {
   dag_nodes_.push_back(std::make_unique<SubsplitDAGNode>(id, subsplit));
 }
 
+void SubsplitDAG::CreateRootNode() {
+  Bitset rootset = Bitset(taxon_count_) + Bitset(taxon_count_, true);
+  SafeInsert(subsplit_to_id_, rootset, root_node_id_);
+  SafeInsert(subsplit_to_id_, rootset.RotateSubsplit(), root_node_id_);
+  root_node_ = std::make_unique<SubsplitDAGNode>(root_node_id_, rootset);
+}
+
 void SubsplitDAG::ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx,
                                bool rotated) {
   const auto node = GetDAGNode(idx);
@@ -458,11 +461,10 @@ void SubsplitDAG::ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx,
 }
 
 void SubsplitDAG::ConnectRootNode() {
-  const auto root_node = GetDAGNode(dag_nodes_.size() - 1);  // replace -1 #273
   for (const auto &rootsplit : rootsplits_) {
     const auto child_node = GetDAGNode(subsplit_to_id_.at(rootsplit + ~rootsplit));
-    root_node->AddLeafwardSorted(child_node->Id());
-    child_node->AddRootwardSorted(root_node->Id());
+    root_node_->AddLeafwardSorted(child_node->Id());
+    child_node->AddRootwardSorted(root_node_id_);
     child_node->SetRootsplit();
   }
 }
@@ -498,12 +500,11 @@ void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child) {
     BuildNodesDepthFirst(index_to_child, subsplit, visited_subsplits);
   }
   // We will create a root node with bitset 0000|1111.
-  Bitset zeros(taxon_count_);
-  CreateAndInsertNode(zeros + ~zeros);
+  CreateRootNode();
 }
 
 void SubsplitDAG::BuildEdges(const SizeBitsetMap &index_to_child) {
-  for (size_t i = taxon_count_; i < dag_nodes_.size() - 1; i++) {  // replace -1 #273
+  for (size_t i = taxon_count_; i < dag_nodes_.size(); i++) {
     ConnectNodes(index_to_child, i, false);
     ConnectNodes(index_to_child, i, true);
   }
@@ -518,7 +519,7 @@ void SubsplitDAG::BuildDAGEdgesFromGPCSPIndexer(BitsetSizeMap &gpcsp_indexer) {
       SafeInsert(dag_edges_, {parent_id, child_id}, index);
     } else if (gpcsp.size() == taxon_count_) {
       const auto rootsplit_id = subsplit_to_id_.at(gpcsp + ~gpcsp);
-      SafeInsert(dag_edges_, {rootsplit_id, rootsplit_id}, index);  // #273
+      SafeInsert(dag_edges_, {root_node_id_, rootsplit_id}, index);
     } else {
       Failwith("Don't recognize bitset size!");
     }
@@ -543,13 +544,9 @@ void RootwardDepthFirst(size_t id,
                         const std::vector<std::unique_ptr<SubsplitDAGNode>> &dag_nodes,
                         SizeVector &visit_order,
                         std::unordered_set<size_t> &visited_nodes) {
-  std::copy(visited_nodes.begin(), visited_nodes.end(),
-            std::ostream_iterator<int>(std::cout, " "));
-  std::cout << "inserting " << id << std::endl;
   SafeInsert(visited_nodes, id);
-  std::cout << "inserted" << std::endl;
   const auto &node = dag_nodes.at(id);
-  if (not node->IsRoot()) {
+  if (not node->IsRootsplit()) {
     for (size_t child_id : node->GetRootwardSorted()) {
       if (visited_nodes.count(child_id) == 0) {
         RootwardDepthFirst(child_id, dag_nodes, visit_order, visited_nodes);

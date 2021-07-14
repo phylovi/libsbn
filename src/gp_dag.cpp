@@ -31,8 +31,7 @@ size_t GPDAG::GetPLVIndexStatic(PLVType plv_type, size_t node_count, size_t src_
 }
 
 size_t GPDAG::GetPLVIndex(PLVType plv_type, size_t src_idx) const {
-  return GetPLVIndexStatic(plv_type, dag_nodes_.size() - 1,
-                           src_idx);  // replace -1 #273
+  return GetPLVIndexStatic(plv_type, dag_nodes_.size(), src_idx);
 }
 
 // The R PLV update that corresponds to our rotation status.
@@ -54,7 +53,7 @@ GPOperationVector GPDAG::ApproximateBranchLengthOptimization() const {
   SubsplitDAG::DepthFirstWithAction(SubsplitDAGTraversalAction(
       // BeforeNode
       [this, &operations](size_t node_id) {
-        if (!GetDAGNode(node_id)->IsRoot()) {
+        if (!GetDAGNode(node_id)->IsRootsplit()) {
           // Update R-hat if we're not at the root.
           UpdateRHat(node_id, operations);
         }
@@ -97,7 +96,7 @@ GPOperationVector GPDAG::BranchLengthOptimization() {
   DepthFirstWithTidyAction(TidySubsplitDAGTraversalAction(
       // BeforeNode
       [this, &operations](size_t node_id) {
-        if (!GetDAGNode(node_id)->IsRoot()) {
+        if (!GetDAGNode(node_id)->IsRootsplit()) {
           // Update R-hat if we're not at the root.
           UpdateRHat(node_id, operations);
         }
@@ -186,7 +185,7 @@ GPOperationVector GPDAG::OptimizeSBNParameters() const {
 
 GPOperationVector GPDAG::SetLeafwardZero() const {
   GPOperationVector operations;
-  const auto node_count = dag_nodes_.size() - 1;  // replace -1 #273
+  const auto node_count = dag_nodes_.size();
   for (size_t i = 0; i < node_count; i++) {
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::R_HAT, i)});
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::R, i)});
@@ -207,7 +206,7 @@ GPOperationVector GPDAG::SetRhatToStationary() const {
 
 GPOperationVector GPDAG::SetRootwardZero() const {
   GPOperationVector operations;
-  const auto node_count = dag_nodes_.size() - 1;  // replace -1 #273
+  const auto node_count = dag_nodes_.size();
   for (size_t i = taxon_count_; i < node_count; i++) {
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::P, i)});
     operations.push_back(ZeroPLV{GetPLVIndex(PLVType::P_HAT, i)});

@@ -196,6 +196,7 @@ class SubsplitDAG {
       EigenConstVectorXdRef node_probabilities) const;
 
  protected:
+  static constexpr size_t root_node_id_ = SIZE_MAX;
   size_t taxon_count_;
   size_t gpcsp_count_without_fake_subsplits_;
   // The collection of rootsplits, with the same indexing as in the indexer_.
@@ -215,6 +216,7 @@ class SubsplitDAG {
   // The last entries are reserved for rootsplits.
   BitsetSizeMap subsplit_to_id_;
   std::vector<std::unique_ptr<SubsplitDAGNode>> dag_nodes_;
+  std::unique_ptr<SubsplitDAGNode> root_node_;
 
   // Total number of topologies spanned by the DAG.
   double topology_count_;
@@ -231,6 +233,7 @@ class SubsplitDAG {
 
   std::pair<BitsetSizeMap, SizeBitsetMap> ProcessTopologyCounter(
       const Node::TopologyCounter &topology_counter);
+  void CreateRootNode();
   void CreateAndInsertNode(const Bitset &subsplit);
   // Connect the `idx` node to its children, and its children to it, rotating as needed.
   void ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx, bool rotated);
