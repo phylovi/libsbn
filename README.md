@@ -76,6 +76,7 @@ Please see our detailed [contribution guidelines](CONTRIBUTING.md).
 * Hassan Nasif ([@hrnasif](https://github.com/hrnasif)): hot start for generalized pruning; gradient descent for generalized pruning
 * Anna Kooperberg ([@annakooperberg](https://github.com/annakooperberg)): refactoring the subsplit DAG
 * Sho Kiami ([@shokiami](https://github.com/shokiami)): refactoring the subsplit DAG
+* Tanvi Ganapathy ([@blue-frog77](https://github.com/blue-frog77)): refactoring the subsplit DAG
 * Ognian Milanov ([@ognian-](https://github.com/ognian-)): C++ wisdom, compressed files
 * Cheng Zhang ([@zcrabbit](https://github.com/zcrabbit)): concept, design, algorithms
 * Christiaan Swanepoel ([@christiaanjs](https://github.com/christiaanjs)): design
