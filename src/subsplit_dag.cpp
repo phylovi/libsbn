@@ -52,7 +52,7 @@ size_t SubsplitDAG::NodeCount() const { return dag_nodes_.size(); }
 
 double SubsplitDAG::TopologyCount() const { return topology_count_; }
 
-size_t SubsplitDAG::RootsplitCount() const { return rootsplits_.size(); }
+size_t SubsplitDAG::RootsplitCount() const { return root_node_->GetLeafwardSorted().size(); }
 
 size_t SubsplitDAG::GPCSPCount() const { return gpcsp_count_without_fake_subsplits_; }
 
@@ -128,8 +128,8 @@ BitsetSizeMap SubsplitDAG::BuildGPCSPIndexer() const {
     SafeInsert(gpcsp_indexer, Bitset::PCSPOfPair(parent_subsplit, child_subsplit),
                gpcsp_idx);
   });
-  for (const auto &rootsplit : rootsplits_) {
-    const auto subsplit = rootsplit + ~rootsplit;
+  for (const auto &id : root_node_->GetLeafwardSorted()) {
+    const auto subsplit = GetDAGNode(id)->GetBitset();
     SafeInsert(gpcsp_indexer, subsplit, GetRootsplitIndex(subsplit));
   }
   return gpcsp_indexer;
@@ -321,8 +321,8 @@ void SubsplitDAG::IterateOverRootwardEdgesAndParents(const SubsplitDAGNode *node
 }
 
 void SubsplitDAG::IterateOverRootsplitIds(const std::function<void(size_t)> &f) const {
-  for (const auto &rootsplit : rootsplits_) {
-    f(subsplit_to_id_.at(rootsplit + ~rootsplit));
+  for (const auto &id : root_node_->GetLeafwardSorted()) {
+    f(id);
   }
 }
 
