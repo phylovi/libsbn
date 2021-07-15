@@ -68,9 +68,8 @@ class TidySubsplitDAG : public SubsplitDAG {
   template <typename TidyTraversalActionT>
   void DepthFirstWithTidyAction(const TidyTraversalActionT &action) {
     std::unordered_set<size_t> visited_nodes;
-    for (const auto &rootsplit : rootsplits_) {
-      DepthFirstWithTidyActionForNode(
-          action, subsplit_to_id_.at(rootsplit + ~rootsplit), visited_nodes);
+    for (const auto &id : root_node_->GetLeafwardSorted()) {
+      DepthFirstWithTidyActionForNode(action, id, visited_nodes);
     }
   };
 

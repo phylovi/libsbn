@@ -15,9 +15,9 @@ SubsplitDAG::SubsplitDAG(size_t taxon_count,
   Assert(topology_counter.size() > 0, "Empty topology counter given to SubsplitDAG.");
   Assert(topology_counter.begin()->first->LeafCount() == taxon_count,
          "Taxon count mismatch in SubsplitDAG constructor.");
-  auto [gpcsp_indexer, index_to_child] = ProcessTopologyCounter(topology_counter);
-  BuildNodes(index_to_child);
-  BuildEdges(index_to_child);
+  auto [gpcsp_indexer, index_to_child, rootsplits] = ProcessTopologyCounter(topology_counter);
+  BuildNodes(index_to_child, rootsplits);
+  BuildEdges(index_to_child, rootsplits);
   BuildDAGEdgesFromGPCSPIndexer(gpcsp_indexer);
   AddFakeSubsplitsToDAGEdgesAndParentToRange();
   CountTopologies();
@@ -129,8 +129,7 @@ BitsetSizeMap SubsplitDAG::BuildGPCSPIndexer() const {
                gpcsp_idx);
   });
   for (const auto &id : root_node_->GetLeafwardSorted()) {
-    const auto subsplit = GetDAGNode(id)->GetBitset();
-    SafeInsert(gpcsp_indexer, subsplit, GetRootsplitIndex(subsplit));
+    SafeInsert(gpcsp_indexer, GetDAGNode(id)->GetBitset(), RootsplitIndexOfId(id));
   }
   return gpcsp_indexer;
 }
@@ -417,15 +416,16 @@ std::vector<Bitset> SubsplitDAG::GetChildSubsplits(const SizeBitsetMap &index_to
   return children_subsplits;
 }
 
-std::pair<BitsetSizeMap, SizeBitsetMap> SubsplitDAG::ProcessTopologyCounter(
+std::tuple<BitsetSizeMap, SizeBitsetMap, BitsetVector> SubsplitDAG::ProcessTopologyCounter(
     const Node::TopologyCounter &topology_counter) {
   BitsetSizeMap gpcsp_indexer;
   SizeBitsetMap index_to_child;
-  std::tie(rootsplits_, gpcsp_indexer, index_to_child, parent_to_range_,
+  BitsetVector rootsplits;
+  std::tie(rootsplits, gpcsp_indexer, index_to_child, parent_to_range_,
            gpcsp_count_without_fake_subsplits_) =
       SBNMaps::BuildIndexerBundle(RootedSBNMaps::RootsplitCounterOf(topology_counter),
                                   RootedSBNMaps::PCSPCounterOf(topology_counter));
-  return {gpcsp_indexer, index_to_child};
+  return {gpcsp_indexer, index_to_child, rootsplits};
 }
 
 void SubsplitDAG::CreateAndInsertNode(const Bitset &subsplit) {
@@ -460,8 +460,8 @@ void SubsplitDAG::ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx,
   }
 }
 
-void SubsplitDAG::ConnectRootNode() {
-  for (const auto &rootsplit : rootsplits_) {
+void SubsplitDAG::ConnectRootNode(const BitsetVector &rootsplits) {
+  for (const auto &rootsplit : rootsplits) {
     const auto child_node = GetDAGNode(subsplit_to_id_.at(rootsplit + ~rootsplit));
     root_node_->AddLeafwardSorted(child_node->Id());
     child_node->AddRootwardSorted(root_node_id_);
@@ -484,7 +484,7 @@ void SubsplitDAG::BuildNodesDepthFirst(const SizeBitsetMap &index_to_child,
   CreateAndInsertNode(subsplit);
 }
 
-void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child) {
+void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child, const BitsetVector &rootsplits) {
   std::unordered_set<Bitset> visited_subsplits;
 
   // We will create fake subsplits and insert to dag_nodes_.
@@ -495,7 +495,7 @@ void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child) {
   }
   // We are going to add the remaining nodes.
   // The root splits will take on the higher IDs compared to the non-rootsplits.
-  for (const auto &rootsplit : rootsplits_) {
+  for (const auto &rootsplit : rootsplits) {
     const auto subsplit = rootsplit + ~rootsplit;
     BuildNodesDepthFirst(index_to_child, subsplit, visited_subsplits);
   }
@@ -503,12 +503,12 @@ void SubsplitDAG::BuildNodes(const SizeBitsetMap &index_to_child) {
   CreateRootNode();
 }
 
-void SubsplitDAG::BuildEdges(const SizeBitsetMap &index_to_child) {
+void SubsplitDAG::BuildEdges(const SizeBitsetMap &index_to_child, const BitsetVector &rootsplits) {
   for (size_t i = taxon_count_; i < dag_nodes_.size(); i++) {
     ConnectNodes(index_to_child, i, false);
     ConnectNodes(index_to_child, i, true);
   }
-  ConnectRootNode();
+  ConnectRootNode(rootsplits);
 }
 
 void SubsplitDAG::BuildDAGEdgesFromGPCSPIndexer(BitsetSizeMap &gpcsp_indexer) {

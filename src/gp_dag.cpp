@@ -156,13 +156,10 @@ GPOperationVector GPDAG::LeafwardPass() const {
 
 GPOperationVector GPDAG::MarginalLikelihood() const {
   GPOperationVector operations = {GPOperations::ResetMarginalLikelihood{}};
-  for (size_t rootsplit_idx = 0; rootsplit_idx < rootsplits_.size(); rootsplit_idx++) {
-    const auto rootsplit = rootsplits_[rootsplit_idx];
-    const auto root_subsplit = rootsplit + ~rootsplit;
-    size_t rootsplit_dag_id = subsplit_to_id_.at(root_subsplit);
+  for (const auto &id : root_node_->GetLeafwardSorted()) {
     operations.push_back(GPOperations::IncrementMarginalLikelihood{
-        GetPLVIndex(PLVType::R_HAT, rootsplit_dag_id), rootsplit_idx,
-        GetPLVIndex(PLVType::P, rootsplit_dag_id)});
+        GetPLVIndex(PLVType::R_HAT, id), RootsplitIndexOfId(id),
+        GetPLVIndex(PLVType::P, id)});
   }
   return operations;
 }
@@ -179,7 +176,7 @@ GPOperationVector GPDAG::OptimizeSBNParameters() const {
     OptimizeSBNParametersForASubsplit(node->GetBitset(), operations);
     OptimizeSBNParametersForASubsplit(node->GetBitset().RotateSubsplit(), operations);
   }
-  operations.push_back(UpdateSBNProbabilities{0, rootsplits_.size()});
+  operations.push_back(UpdateSBNProbabilities{0, RootsplitCount()});
   return operations;
 }
 
