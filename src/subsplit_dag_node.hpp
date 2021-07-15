@@ -22,7 +22,7 @@
 class SubsplitDAGNode {
  public:
   SubsplitDAGNode(size_t id, Bitset subsplit)
-      : id_(id), is_rootsplit_(false), subsplit_(std::move(subsplit)) {}
+      : id_(id), subsplit_(std::move(subsplit)) {}
 
   size_t Id() const { return id_; }
   const Bitset &GetBitset() const { return subsplit_; }
@@ -32,14 +32,13 @@ class SubsplitDAGNode {
   bool IsRootNode() const {
     return (rootward_sorted_.empty() && rootward_rotated_.empty());
   };
-  bool IsRootsplit() const { return is_rootsplit_; };
+  bool IsRootsplit() const { return subsplit_.Count() == subsplit_.SubsplitChunkSize(); }
   bool IsLeaf() const { return leafward_rotated_.empty() && leafward_sorted_.empty(); }
 
   void AddLeafwardRotated(size_t node_id) { leafward_rotated_.push_back(node_id); }
   void AddLeafwardSorted(size_t node_id) { leafward_sorted_.push_back(node_id); }
   void AddRootwardRotated(size_t node_id) { rootward_rotated_.push_back(node_id); }
   void AddRootwardSorted(size_t node_id) { rootward_sorted_.push_back(node_id); }
-  void SetRootsplit(bool is_rootsplit = true) { is_rootsplit_ = is_rootsplit; }
   const SizeVector &GetLeafwardRotated() const { return leafward_rotated_; }
   const SizeVector &GetLeafwardSorted() const { return leafward_sorted_; }
   const SizeVector &GetLeafward(bool rotated) const {
@@ -56,7 +55,6 @@ class SubsplitDAGNode {
  private:
   size_t id_;
   Bitset subsplit_;
-  bool is_rootsplit_;
 
   SizeVector leafward_rotated_;
   SizeVector leafward_sorted_;

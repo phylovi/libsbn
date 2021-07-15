@@ -468,7 +468,6 @@ void SubsplitDAG::ConnectRootNode(const BitsetVector &rootsplits) {
     const auto child_node = GetDAGNode(subsplit_to_id_.at(rootsplit + ~rootsplit));
     root_node_->AddLeafwardSorted(child_node->Id());
     child_node->AddRootwardSorted(root_node_id_);
-    child_node->SetRootsplit();
   }
 }
 
