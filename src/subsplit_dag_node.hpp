@@ -32,7 +32,9 @@ class SubsplitDAGNode {
   bool IsRootNode() const {
     return (rootward_sorted_.empty() && rootward_rotated_.empty());
   };
-  bool IsRootsplit() const { return subsplit_.Count() == subsplit_.SubsplitChunkSize(); }
+  bool IsRootsplit() const {
+    return subsplit_.Count() == subsplit_.SubsplitChunkSize();
+  }
   bool IsLeaf() const { return leafward_rotated_.empty() && leafward_sorted_.empty(); }
 
   void AddLeafwardRotated(size_t node_id) { leafward_rotated_.push_back(node_id); }

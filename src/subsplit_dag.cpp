@@ -45,8 +45,9 @@ void SubsplitDAG::CountTopologies() {
     }
   }
   topology_count_ = 0;
-  IterateOverRootsplitIds(
-      [this](size_t rootsplit_id) { topology_count_ += topology_count_below_[rootsplit_id]; });
+  IterateOverRootsplitIds([this](size_t rootsplit_id) {
+    topology_count_ += topology_count_below_[rootsplit_id];
+  });
 }
 
 size_t SubsplitDAG::NodeCount() const { return dag_nodes_.size(); }
