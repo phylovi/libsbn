@@ -76,7 +76,7 @@ class SubsplitDAG {
   // Access the GPCSP index of a given rootsplit.
   size_t GetRootsplitIndex(const Bitset &rootsplit) const;
   // Access the GPCSP index of a given rootsplit.
-  size_t RootsplitIndexOfId(size_t root_id) const;
+  size_t RootsplitIndexOfId(size_t rootsplit_id) const;
   // Access the GPCSP index from a parent-child pair of DAG nodes.
   size_t GetGPCSPIndex(const Bitset &parent_subsplit,
                        const Bitset &child_subsplit) const;

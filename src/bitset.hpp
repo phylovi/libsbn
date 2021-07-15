@@ -102,7 +102,7 @@ class Bitset {
   //
   // For example, `100011001` is composed of the chunks `100`, `011` and `001`.
   // If the taxa are x0, x1, and x2 then this means the parent subsplit is (A,
-  // BC) with bitset `100|001`, and the child subsplit is (B, C) with bitset
+  // BC) with bitset `100|011`, and the child subsplit is (B, C) with bitset
   // `010|001.` Child 0 is the clade `001` and child 1 is the clade `010.`
   // See the unit tests at the bottom for more examples.
   std::string PCSPToString() const;

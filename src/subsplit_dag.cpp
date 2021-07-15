@@ -46,7 +46,7 @@ void SubsplitDAG::CountTopologies() {
   }
   topology_count_ = 0;
   IterateOverRootsplitIds(
-      [this](size_t root_id) { topology_count_ += topology_count_below_[root_id]; });
+      [this](size_t rootsplit_id) { topology_count_ += topology_count_below_[rootsplit_id]; });
 }
 
 size_t SubsplitDAG::NodeCount() const { return dag_nodes_.size(); }
@@ -145,8 +145,8 @@ size_t SubsplitDAG::GetRootsplitIndex(const Bitset &rootsplit) const {
   return RootsplitIndexOfId(subsplit_to_id_.at(rootsplit));
 }
 
-size_t SubsplitDAG::RootsplitIndexOfId(size_t root_id) const {
-  return dag_edges_.at({root_node_id_, root_id});
+size_t SubsplitDAG::RootsplitIndexOfId(size_t rootsplit_id) const {
+  return dag_edges_.at({root_node_id_, rootsplit_id});
 }
 
 size_t SubsplitDAG::GetGPCSPIndex(const Bitset &parent_subsplit,
@@ -178,9 +178,9 @@ EigenVectorXd SubsplitDAG::BuildUniformOnTopologicalSupportPrior() const {
     }
   }
 
-  IterateOverRootsplitIds([this, &q](size_t root_id) {
-    auto gpcsp_idx = RootsplitIndexOfId(root_id);
-    q[gpcsp_idx] = topology_count_below_[root_id] / topology_count_;
+  IterateOverRootsplitIds([this, &q](size_t rootsplit_id) {
+    auto gpcsp_idx = RootsplitIndexOfId(rootsplit_id);
+    q[gpcsp_idx] = topology_count_below_[rootsplit_id] / topology_count_;
   });
 
   return q;
@@ -227,9 +227,9 @@ Node::NodePtrVec SubsplitDAG::GenerateAllTopologies() const {
   }
 
   Node::NodePtrVec topologies;
-  IterateOverRootsplitIds([&topologies, &topology_below](size_t root_id) {
-    topologies.insert(topologies.end(), topology_below.at(root_id).begin(),
-                      topology_below.at(root_id).end());
+  IterateOverRootsplitIds([&topologies, &topology_below](size_t rootsplit_id) {
+    topologies.insert(topologies.end(), topology_below.at(rootsplit_id).begin(),
+                      topology_below.at(rootsplit_id).end());
   });
 
   Assert(topologies.size() == TopologyCount(),
@@ -595,8 +595,8 @@ SizeVector SubsplitDAG::LeafwardPassTraversal() const {
 SizeVector SubsplitDAG::RootwardPassTraversal() const {
   SizeVector visit_order;
   std::unordered_set<size_t> visited_nodes;
-  IterateOverRootsplitIds([this, &visit_order, &visited_nodes](size_t root_id) {
-    LeafwardDepthFirst(root_id, dag_nodes_, visit_order, visited_nodes);
+  IterateOverRootsplitIds([this, &visit_order, &visited_nodes](size_t rootsplit_id) {
+    LeafwardDepthFirst(rootsplit_id, dag_nodes_, visit_order, visited_nodes);
   });
   return visit_order;
 }

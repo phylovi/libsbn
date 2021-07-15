@@ -595,3 +595,21 @@ TEST_CASE("GPInstance: test GPCSP indexes") {
         CHECK_EQ(dag.GPCSPIndexOfIds(parent_id, child_id), gpcsp_idx);
       });
 }
+
+TEST_CASE("GPInstance: test root node and rootsplits") {
+  const std::string fasta_path = "data/7-taxon-slice-of-ds1.fasta";
+  auto inst = GPInstanceOfFiles(fasta_path, "data/simplest-hybrid-marginal.nwk");
+  auto& dag = inst.GetDAG();
+  const size_t root_node_id = SIZE_MAX;
+  dag.IterateOverRootsplitIds(
+      [&dag](size_t rootsplit_id) {
+        const auto rootsplit_node = dag.GetDAGNode(rootsplit_id);
+        // Checks if IsRootsplit() returns correctly.
+        CHECK_EQ(rootsplit_node->IsRootsplit(), true);
+        const auto root_nodes = rootsplit_node->GetRootwardSorted();
+        // Checks if there is only one root node (i.e. each rootsplit has only one parent).
+        CHECK_EQ(root_nodes.size(), 1);
+        // Checks if the root node has the correct ID.
+        CHECK_EQ(root_nodes.at(0), root_node_id);
+      });
+}
