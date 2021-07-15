@@ -25,7 +25,7 @@
 // edges is given by the `parent_to_range_` map.
 // There is also a `subsplit_to_id_` map that maps from the subsplit bitset of the DAG
 // node (and its rotated version) to the node Id.
-// - The root node of the DAG is represented by `root_node_` and the rootsplits are 
+// - The root node of the DAG is represented by `root_node_` and the rootsplits are
 // its children (i.e. `root_node_->GetLeafwardSorted()`).
 
 #ifndef SRC_SUBSPLIT_DAG_HPP_

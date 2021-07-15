@@ -156,10 +156,10 @@ GPOperationVector GPDAG::LeafwardPass() const {
 
 GPOperationVector GPDAG::MarginalLikelihood() const {
   GPOperationVector operations = {GPOperations::ResetMarginalLikelihood{}};
-  for (const auto &id : root_node_->GetLeafwardSorted()) {
+  for (const auto &rootsplit_id : root_node_->GetLeafwardSorted()) {
     operations.push_back(GPOperations::IncrementMarginalLikelihood{
-        GetPLVIndex(PLVType::R_HAT, id), RootsplitIndexOfId(id),
-        GetPLVIndex(PLVType::P, id)});
+        GetPLVIndex(PLVType::R_HAT, rootsplit_id), RootsplitIndexOfId(rootsplit_id),
+        GetPLVIndex(PLVType::P, rootsplit_id)});
   }
   return operations;
 }
