@@ -160,10 +160,11 @@ class SubsplitDAG {
   // recording the trace of a traversal.
   [[nodiscard]] SizeVector LeafwardPassTraversal() const;
   [[nodiscard]] SizeVector RootwardPassTraversal() const;
-  [[nodiscard]] SizeVector ReversePostorderTraversal() const;
+  [[nodiscard]] SizeVector RootwardPassTraversalWithDAGRoot() const;
+  [[nodiscard]] SizeVector ReversePostorderTraversalWithDAGRoot() const;
 
-  // Do a reverse postorder traversal on the edges of the DAG, supplying the relevant
-  // indices to a lambda.
+  // Do a reverse postorder traversal on the edges of the DAG, including edges from the
+  // dag root to the rootsplits, supplying the relevant indices to a lambda.
   void ReversePostorderIndexTraversal(ParentRotationChildEdgeLambda f) const;
 
   // Discrete uniform distribution over each subsplit.
@@ -246,6 +247,10 @@ class SubsplitDAG {
   void CountTopologies();
   // Expand dag_edges_ and parent_to_range_ with fake subsplits at the end.
   void AddFakeSubsplitsToDAGEdgesAndParentToRange();
+  void LeafwardDepthFirst(size_t id, SizeVector &visit_order,
+                          std::unordered_set<size_t> &visited_nodes) const;
+  void RootwardDepthFirst(size_t id, SizeVector &visit_order,
+                          std::unordered_set<size_t> &visited_nodes) const;
   Bitset PerhapsRotateSubsplit(const Bitset &subsplit, bool rotated);
 };
 
