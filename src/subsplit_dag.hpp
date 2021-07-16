@@ -56,8 +56,8 @@ class SubsplitDAG {
 
   // Root node is not counted towards total node count.
   size_t NodeCount() const;
-  // How many topologies can be expressed by the GPDAG? Expressed as a double because
-  // this number can be big.
+  // How many topologies can be expressed by the subsplit DAG? Expressed as a double
+  // because this number can be big.
   double TopologyCount() const;
   size_t RootsplitCount() const;
   size_t GPCSPCount() const;
