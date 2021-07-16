@@ -68,10 +68,9 @@ class TidySubsplitDAG : public SubsplitDAG {
   template <typename TidyTraversalActionT>
   void DepthFirstWithTidyAction(const TidyTraversalActionT &action) {
     std::unordered_set<size_t> visited_nodes;
-    for (const auto &rootsplit : rootsplits_) {
-      DepthFirstWithTidyActionForNode(
-          action, subsplit_to_id_.at(rootsplit + ~rootsplit), visited_nodes);
-    }
+    IterateOverRootsplitIds([this, &action, &visited_nodes](size_t rootsplit_id) {
+      DepthFirstWithTidyActionForNode(action, rootsplit_id, visited_nodes);
+    });
   };
 
   // The portion of the traversal that is below a given node.

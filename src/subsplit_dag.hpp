@@ -2,7 +2,31 @@
 // libsbn is free software under the GPLv3; see LICENSE file for details.
 //
 // The purpose of this class is to hold a DAG built from the parent-child relationships
-// of the subsplits.
+// of the subsplits. We wish to have information associated with both the nodes and
+// edges of the DAG. Our strategy for doing that is via non-negative integer indices:
+// nodes have a unique size_t `Id`, and each edge has a unique `gpcsp_idx`. We can then
+// store arbitrary associated information in other data structures associated with these
+// indices.
+//
+// The DAG has a well-defined notion of rootward and leafward.
+//
+// The data structure for this DAG is as follows:
+// - The nodes of the DAG have vectors of indices representing their edges to other
+// nodes. These include edges to the children (leafward edges) and also the edges that
+// are connecting to that node (rootward edges). Furthermore, these sets of edges are
+// separated into two classes: those that split apart the left component of the subsplit
+// ("rotated" edges) and those that split apart the right component of the subsplit
+// ("sorted" edges). The nodes of the DAG also include bitsets describing the subsplit
+// that they represent.
+// - The edges of the DAG are indexed separately, and there is a map (`dag_edges_`)
+// which maps from pairs of node Ids to this edge index. These DAG edges are indexed
+// such that all of the sorted edges descending from a given node have a contiguous set
+// of indices, as do all of the rotated indices. The range of indices for such a set of
+// edges is given by the `parent_to_range_` map.
+// There is also a `subsplit_to_id_` map that maps from the subsplit bitset of the DAG
+// node (and its rotated version) to the node Id.
+// - The root node of the DAG is represented by `root_node_` and the rootsplits are
+// its children (i.e. `root_node_->GetLeafwardSorted()`).
 
 #ifndef SRC_SUBSPLIT_DAG_HPP_
 #define SRC_SUBSPLIT_DAG_HPP_
@@ -30,9 +54,10 @@ class SubsplitDAG {
   SubsplitDAG();
   explicit SubsplitDAG(const RootedTreeCollection &tree_collection);
 
+  // Root node is not counted towards total node count.
   size_t NodeCount() const;
-  // How many topologies can be expressed by the GPDAG? Expressed as a double because
-  // this number can be big.
+  // How many topologies can be expressed by the subsplit DAG? Expressed as a double
+  // because this number can be big.
   double TopologyCount() const;
   size_t RootsplitCount() const;
   size_t GPCSPCount() const;
@@ -42,7 +67,7 @@ class SubsplitDAG {
   void PrintGPCSPIndexer() const;
   std::string ToDot(bool show_index_labels = true) const;
 
-  // Create a gpcsp indexer from ReversePostorderIndexTraversal and rootsplits_.
+  // Create a gpcsp indexer from ReversePostorderIndexTraversal.
   // The gpcsp indexer is "expanded" meaning it contains fake PCSPs and rootsplit
   // bitsets are formatted as subsplits: 1110|0001.
   BitsetSizeMap BuildGPCSPIndexer() const;
@@ -51,7 +76,7 @@ class SubsplitDAG {
   // Access the GPCSP index of a given rootsplit.
   size_t GetRootsplitIndex(const Bitset &rootsplit) const;
   // Access the GPCSP index of a given rootsplit.
-  size_t RootsplitIndexOfId(size_t root_id) const;
+  size_t RootsplitIndexOfId(size_t rootsplit_id) const;
   // Access the GPCSP index from a parent-child pair of DAG nodes.
   size_t GetGPCSPIndex(const Bitset &parent_subsplit,
                        const Bitset &child_subsplit) const;
@@ -96,10 +121,9 @@ class SubsplitDAG {
   template <typename TraversalActionT>
   void DepthFirstWithAction(const TraversalActionT &action) const {
     std::unordered_set<size_t> visited_nodes;
-    for (const auto &rootsplit : rootsplits_) {
-      DepthFirstWithActionForNode(action, subsplit_to_id_.at(rootsplit + ~rootsplit),
-                                  visited_nodes);
-    }
+    IterateOverRootsplitIds([this, &action, &visited_nodes](size_t rootsplit_id) {
+      DepthFirstWithActionForNode(action, rootsplit_id, visited_nodes);
+    });
   };
 
   // The portion of the traversal that is below a given node.
@@ -136,10 +160,11 @@ class SubsplitDAG {
   // recording the trace of a traversal.
   [[nodiscard]] SizeVector LeafwardPassTraversal() const;
   [[nodiscard]] SizeVector RootwardPassTraversal() const;
-  [[nodiscard]] SizeVector ReversePostorderTraversal() const;
+  [[nodiscard]] SizeVector RootwardPassTraversalWithDAGRoot() const;
+  [[nodiscard]] SizeVector ReversePostorderTraversalWithDAGRoot() const;
 
-  // Do a reverse postorder traversal on the edges of the DAG, supplying the relevant
-  // indices to a lambda.
+  // Do a reverse postorder traversal on the edges of the DAG, including edges from the
+  // dag root to the rootsplits, supplying the relevant indices to a lambda.
   void ReversePostorderIndexTraversal(ParentRotationChildEdgeLambda f) const;
 
   // Discrete uniform distribution over each subsplit.
@@ -172,10 +197,9 @@ class SubsplitDAG {
       EigenConstVectorXdRef node_probabilities) const;
 
  protected:
+  static constexpr size_t root_node_id_ = SIZE_MAX;
   size_t taxon_count_;
   size_t gpcsp_count_without_fake_subsplits_;
-  // The collection of rootsplits, with the same indexing as in the indexer_.
-  BitsetVector rootsplits_;
   // This indexer is an expanded version of parent_to_range_ in sbn_instance:
   // it includes single element range for fake subsplits.
   BitsetSizePairMap parent_to_range_;
@@ -191,6 +215,7 @@ class SubsplitDAG {
   // The last entries are reserved for rootsplits.
   BitsetSizeMap subsplit_to_id_;
   std::vector<std::unique_ptr<SubsplitDAGNode>> dag_nodes_;
+  std::unique_ptr<SubsplitDAGNode> root_node_;
 
   // Total number of topologies spanned by the DAG.
   double topology_count_;
@@ -205,20 +230,27 @@ class SubsplitDAG {
                                         const Bitset &subsplit,
                                         bool include_fake_subsplits = false);
 
-  std::pair<BitsetSizeMap, SizeBitsetMap> ProcessTopologyCounter(
+  std::tuple<BitsetSizeMap, SizeBitsetMap, BitsetVector> ProcessTopologyCounter(
       const Node::TopologyCounter &topology_counter);
+  void CreateRootNode();
   void CreateAndInsertNode(const Bitset &subsplit);
   // Connect the `idx` node to its children, and its children to it, rotating as needed.
-  void ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx, bool rotated);
+  void ConnectNodes(const SizeBitsetMap &index_to_child, size_t id, bool rotated);
+  // Connect the root node to the rootsplits
+  void ConnectRootNode(const BitsetVector &rootsplits);
 
   void BuildNodesDepthFirst(const SizeBitsetMap &index_to_child, const Bitset &subsplit,
                             std::unordered_set<Bitset> &visited_subsplits);
-  void BuildNodes(const SizeBitsetMap &index_to_child);
-  void BuildEdges(const SizeBitsetMap &index_to_child);
+  void BuildNodes(const SizeBitsetMap &index_to_child, const BitsetVector &rootsplits);
+  void BuildEdges(const SizeBitsetMap &index_to_child, const BitsetVector &rootsplits);
   void BuildDAGEdgesFromGPCSPIndexer(BitsetSizeMap &gpcsp_indexer);
   void CountTopologies();
   // Expand dag_edges_ and parent_to_range_ with fake subsplits at the end.
   void AddFakeSubsplitsToDAGEdgesAndParentToRange();
+  void LeafwardDepthFirst(size_t id, SizeVector &visit_order,
+                          std::unordered_set<size_t> &visited_nodes) const;
+  void RootwardDepthFirst(size_t id, SizeVector &visit_order,
+                          std::unordered_set<size_t> &visited_nodes) const;
   Bitset PerhapsRotateSubsplit(const Bitset &subsplit, bool rotated);
 };
 
