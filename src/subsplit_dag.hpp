@@ -54,7 +54,7 @@ class SubsplitDAG {
   SubsplitDAG();
   explicit SubsplitDAG(const RootedTreeCollection &tree_collection);
 
-  // Root node is not counted towards total node count
+  // Root node is not counted towards total node count.
   size_t NodeCount() const;
   // How many topologies can be expressed by the GPDAG? Expressed as a double because
   // this number can be big.
@@ -121,9 +121,9 @@ class SubsplitDAG {
   template <typename TraversalActionT>
   void DepthFirstWithAction(const TraversalActionT &action) const {
     std::unordered_set<size_t> visited_nodes;
-    for (const auto &id : root_node_->GetLeafwardSorted()) {
-      DepthFirstWithActionForNode(action, id, visited_nodes);
-    }
+    IterateOverRootsplitIds([this, &action, &visited_nodes](size_t rootsplit_id) {
+      DepthFirstWithActionForNode(action, rootsplit_id, visited_nodes);
+    });
   };
 
   // The portion of the traversal that is below a given node.
@@ -234,7 +234,7 @@ class SubsplitDAG {
   void CreateRootNode();
   void CreateAndInsertNode(const Bitset &subsplit);
   // Connect the `idx` node to its children, and its children to it, rotating as needed.
-  void ConnectNodes(const SizeBitsetMap &index_to_child, size_t idx, bool rotated);
+  void ConnectNodes(const SizeBitsetMap &index_to_child, size_t id, bool rotated);
   // Connect the root node to the rootsplits
   void ConnectRootNode(const BitsetVector &rootsplits);
 
